@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-EN">
+
+<head>
+  <title>Hangman Game</title>
+  <meta charset="utf-8">
+  <meta name="description" content="<?php echo $Opis; ?>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000" />
+  <link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="img/favicon.ico" rel="apple-touch-icon-precomposed">
+
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <!-- End of CSS -->
+
+  <!-- JS -->
+  <script defer src="https://code.iconify.design/iconify-icon/1.0.0-beta.3/iconify-icon.min.js"></script>
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script defer src="js/functions.js"></script>
+  <!-- End of JS -->
+
+</head>
+
+<body>
+
+  <div id="landing" class="landing">
+    <h1>HANGMAN GAME</h1>
+    <button id="buttonstart">START</button>
+  </div>
+
+  <div id="landing-typeword" class="landing">
+    <h1>TYPE WORD</h1>
+    <input id="userword" placeholder="Your word">
+  </div>
+
+  <div id="game">
+    <h2 id="endgame" style="display: none"></h2>
+    <span id="attempts">0</span>
+    <button id="buttonrestart">RESTART</button>
+
+    <div>
+      <h1 id="hiddenword">TYPE WORD</h1>
+    </div>
+
+    <div id="hangman" style="display: none;"></div>
+    <div id="keyboard" style="display: none;"></div>
+  </div>
+
+  <!-- <div id="landing-gameover" class="landing">
+    <h2 id="endgame" style="display: none"></h2>
+    <input id="userword" placeholder="Your word">
+  </div> -->
+
+</body>
