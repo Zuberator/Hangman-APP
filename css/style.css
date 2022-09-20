@@ -12,9 +12,9 @@ body {
   transform: translateY(-100%);
 }
 
-h1 {font-size: clamp(2em, 10vw, 4em); letter-spacing: 3px;}
+h1 {font-size: clamp(2em, 10vw, 4em); letter-spacing: 3px; margin: 0;}
 
-/* WRAPPER */
+/* LANDING */
 
 .landing {
   display: flex;
@@ -28,7 +28,10 @@ h1 {font-size: clamp(2em, 10vw, 4em); letter-spacing: 3px;}
   color: #fff;
   transition: 2s;
   z-index: 999;
+  gap: 2rem;
 }
+
+/* LANDING - TYPE WORD */
 
 #landing-typeword {
   color: #000;
@@ -36,23 +39,35 @@ h1 {font-size: clamp(2em, 10vw, 4em); letter-spacing: 3px;}
   z-index: 99;
 }
 
+input {
+  box-sizing: border-box;
+  width: 200px;
+  padding: 1em;
+  border: 1px solid #000;
+  font-size: 11px;
+  margin: 0;
+}
+
+hr {
+  width: 50%;
+}
+
+#draw {
+  color: #fff;
+  background: #000;
+}
+
+/* WRAPPER */
+
 #game {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
   gap: 3em;
 }
 
-#hangman {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  height: 350px;
-  width: 100vw;
-  max-width: 500px;
-}
+/* BUTTONS */
 
 button {
   border-radius: 50%;
@@ -71,65 +86,114 @@ button:hover {
 
 #buttonrestart {
   position: absolute;
-  top: 0;
-  right: 0;
-  margin: 10px;
+  inset: 10px 10px auto auto;
+  width: 10vw;
+  max-width: 75px;
+  height: auto;
+  aspect-ratio: 1/1;
+  font-size: clamp(1px, 5vw, 3rem);
   color: #fff;
   background: #000;
 }
 
-#attempts {
+.stats {
   position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  line-height: 80px;
-  margin: 10px;
-  color: #fff;
-  background: red;
+  top: 10px;
+  left: 10px;
 }
 
-input {
-  box-sizing: border-box;
-  width: 200px;
-  padding: 1em;
-  border: 1px solid #000;
-  font-size: 11px;
-  margin: 0;
+#allGuessesBox {
+  width: 10vw;
+  max-width: 75px;
+  height: auto;
+  aspect-ratio: 1/1;
+  font-size: clamp(1px, 5vw, 3rem);
+  color: #fff;
+  background: green;
+}
+
+#badGuessesBox {
+  width: 10vw;
+  max-width: 75px;
+  height: auto;
+  aspect-ratio: 1/1;
+  font-size: clamp(1px, 5vw, 3rem);
+  color: #fff;
+  background: tomato;
 }
 
 /* KEYBOARD */
 
 #keyboard {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
+  grid-template-columns: repeat(7, 1fr);
   gap: 5px;
   width: 100vw;
   max-width: 500px;
 }
 
-#keyboard > div {
+#keyboard .key {
   width: 100%;
-  /* width: 40px; */
-  height: 40px;
-  line-height: 40px;
+  max-width: 100%;
+  height: auto;
   border-radius: 50%;
+  aspect-ratio: 40/40;
+  cursor: pointer;
+  transition: 1s;
 }
 
-.key {cursor: pointer;}
+#keyboard .key:hover {
+  transition: 0s;
+}
 
-.key:not([class*="disabled"]):hover {
+#keyboard .key:not([class*="disabled"]):hover {
   background: #000;
   color: #fff;
 }
 
-.disabled {
+#keyboard .disabled {
   background: red;
   opacity: 0.4;
   cursor: not-allowed;
   color: #fff;
 }
 
-.found {background: green;}
+#keyboard .found {background: green;}
+
+/* HANGMAN */
+
+/* #hangman {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  max-width: 500px;
+} */
+
+html body svg {
+  width: 50vw;
+  max-width: 300px;
+}
+
+html body svg * {
+  fill: none;
+  stroke: #EEEEEE;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+  transition: 0.25s;
+}
+
+html body input:not([correct]):checked ~ .hangman .stage1,
+html body input:not([correct]):checked ~ input:not([correct]):checked ~ .hangman .stage2,
+html body input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ .hangman .stage3,
+html body input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ .hangman .stage4,
+html body input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ .hangman .stage5,
+html body input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ .hangman .stage6,
+html body input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ .hangman .stage7,
+html body input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ .hangman .stage8,
+html body input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ .hangman .stage9,
+html body input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ input:not([correct]):checked ~ .hangman .stage10 {
+  stroke: black;
+  display: grid;
+}

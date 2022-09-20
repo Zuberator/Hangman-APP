@@ -11,10 +11,12 @@ const input = document.getElementById("userword");
 const hiddenWord = document.getElementById("hiddenword");
 const hangman = document.getElementById("hangman");
 const keyboard = document.getElementById("keyboard");
-const attempts = document.getElementById("attempts");
+const allGuessesBox = document.getElementById("allGuessesBox");
+const badGuessesBox = document.getElementById("badGuessesBox");
 
 // VARIABLES
-let times = 0;
+let allGuesses = 0;
+let badGuesses = 0;
 let word = [];
 let hidden = [];
 let keys = [];
@@ -53,27 +55,31 @@ var alphabet = [
   "Y",
   "Z",
   "Ż",
-  "Ź"
+  "Ź",
 ];
 
-// EKRAN POWITALNY
+// WELCOME PAGE
 
 buttonstart.addEventListener("click", () => {
   landing.classList.add("hide");
-  setInterval(function () { landing.style.display = "none"; }, 2000);
+  setInterval(function () {
+    landing.style.display = "none";
+  }, 2000);
 });
 
-// WPROWADZANIE SŁOWA I ROZPOCZĘCIE GRY
+// INPUT WORD AND WAIT FOR ENTER
 
 input.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     landingTypeWord.classList.add("hide");
-    setInterval(function () { landing.style.display = "none"; }, 2000);
+    setInterval(function () {
+      landing.style.display = "none";
+    }, 2000);
     start();
-  };
+  }
 });
 
-// FUNKCJA GŁÓWNA
+// MAIN GAME FUNCTION
 
 function start() {
   hideWord();
@@ -82,7 +88,7 @@ function start() {
   updateHiddenWord();
 }
 
-// UKRYCIE SŁOWA
+// HIDE WORD
 
 function hideWord() {
   word = input.value.toUpperCase().split("");
@@ -92,87 +98,147 @@ function hideWord() {
   }
 }
 
-// WYGENEROWANIE KLAWIATURY
+// GENERATE KEYBOARD
 
 function generateKeyboard() {
   keyboard.replaceChildren(); //Removing keyboard, if already exist
-  hangman.style.display = "flex";
-  keyboard.removeAttribute('style');
+  hangman.removeAttribute("style");
+  keyboard.removeAttribute("style");
   for (i = 0; i < alphabet.length; i++) {
-    let sign = document.createElement("div");
-    sign.classList.add("key");
-    sign.setAttribute("id", i);
-    sign.textContent = alphabet[i];
-    keyboard.appendChild(sign);
+    let keyButton = document.createElement("button");
+    keyButton.classList.add("key");
+    keyButton.setAttribute("id", i);
+    keyButton.textContent = alphabet[i];
+    keyboard.appendChild(keyButton);
   }
 }
 
-// DODAJ LISTENER DLA WSZYSTKICH KLAWISZY
+// ADD LISTENER FOR ALL KEYBOARD KEYS
+
+// function addListenersForKeys() {
+//   keys = document.querySelectorAll(".key");
+//   keys.forEach((key) =>
+//     key.addEventListener("click", (event) => {
+//       checkCompatibility(event);
+//       disableClickedButton(event);
+//       updateHiddenWord();
+//       updateAttempts();
+//       checkIfYouWonOrLost();
+//     })
+//   );
+// }
 
 function addListenersForKeys() {
   keys = document.querySelectorAll(".key");
   keys.forEach((key) => key.addEventListener("click", checkCompatibility));
 }
 
-// SPRAWDŹ, CZY LITERKA JEST W SŁOWIE?
+// CHECK IF THE LITERAL IS IN THE WORD?
 
 function checkCompatibility(event) {
-  for (i = 0; i < word.length; i++) {
-    if (word[i] == event.target.textContent) {
+  let guessed = false;
+
+  word.forEach((string, index) => {
+    if (string == event.target.textContent) {
       event.target.classList.add("found");
-      hidden[i] = word[i];
+      hidden[index] = string;
+      guessed = true;
     }
+  });
+
+  if (!guessed) {
+    badGuesses++;
+    drawHangman();
   }
+
   disableClickedButton(event);
   updateHiddenWord();
   updateAttempts();
-  checkIfYouWon(event);
+  checkIfYouWonOrLost();
+
+  // for (i = 0; i < word.length; i++) {
+  //   if (word[i] == event.target.textContent) {
+  //     event.target.classList.add("found");
+  //     hidden[i] = word[i];
+  //     guessed = true;
+  //   }
+  // }
+
+  // if (!guessed) {
+  //   badGuesses++;
+  //   drawHangman();
+  // }
 }
 
-// WYŁĄCZ KLIKNIĘTY PRZYCISK
+// DISABLE CLICKED KEYBOARD KEY AND REMOVE LISTENER FOR IT
 
 function disableClickedButton(event) {
   event.target.classList.add("disabled");
   event.target.removeEventListener("click", checkCompatibility);
 }
 
-// UAKTUALNIJ UKRYTE SŁOWO
+// UPDATE HIDDEN WORD
 
 function updateHiddenWord() {
   hiddenWord.textContent = hidden.join("");
 }
 
-// UAKTUALNIJ LICZBĘ PRÓB
+// UPDATE ALL GUESSES
 
 function updateAttempts() {
-  times++;
-  attempts.textContent = times;
+  allGuesses++;
+  allGuessesBox.textContent = allGuesses;
+  badGuessesBox.textContent = badGuesses;
 }
 
-// SPRAWDŹ, CZY WYGRAŁEŚ?
+// DRAW HANGMAN
 
-function checkIfYouWon(event) {
-  if (hidden.join("") == word.join("")) {
+function drawHangman() {
+  let hangmanPart = hangman.querySelector(`.part[part="${badGuesses}"]`);
+  hangmanPart.style.stroke = "black";
+}
+
+// CHECK, IF YOU WON OR LOST?
+
+function checkIfYouWonOrLost() {
+  if (hidden.join("") == word.join("") || badGuesses >= 11) {
     hangman.style.display = "none";
     keyboard.style.display = "none";
+    hiddenWord.style.display = "none";
     endgame.style.display = "block";
-    endgame.textContent = "GRATULACJE, Wygrałeś! Szukane słowo to: ";
   }
+
+  if (hidden.join("") == word.join(""))
+    return (endgame.innerHTML = `CONGRATULATIONS, You won! The word you were looking for was: <p>${word.join(
+      ""
+    )}</p>`);
+
+  if (badGuesses >= 11)
+    return (endgame.innerHTML = `SORRY, You Lost! The word you were looking for was: <p>${word.join(
+      ""
+    )}</p>`);
 }
 
 // RESTART
 
 buttonrestart.addEventListener("click", () => {
-  // location.reload();
   window.location = window.location;
 });
+
+// |
+// |
+// |
+// INNE - NIEPOTRZEBNE
+// |
+// |
+// |
 
 String.prototype.podmienZnak = function (miejsce, znak) {
   if (miejsce > this.length - 1) return;
   return this.substr(0, miejsce) + znak + this.substr(miejsce + 1);
 };
 
-napis = "przysłowie";
+napis = "word word";
 
 console.log(napis.podmienZnak(0, "p"));
 
