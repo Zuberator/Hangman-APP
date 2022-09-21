@@ -12,7 +12,7 @@ const buttonrestart = document.querySelectorAll("#buttonrestart");
 // LANDING
 const landingStart = document.getElementById("landingStart");
 const landingTypeWord = document.getElementById("landingTypeWord");
-const landingGameover = document.getElementById("landingGameover");
+const landingGameOver = document.getElementById("landingGameOver");
 
 // ELEMENTS
 const input = document.getElementById("userword");
@@ -24,10 +24,14 @@ const hangman = document.getElementById("hangman");
 const keyboard = document.getElementById("keyboard");
 
 // STATS
-const statsTextBox = document.getElementById("statsTextBox");
 const goodGuessesBox = document.getElementById("goodGuessesBox");
 const badGuessesBox = document.getElementById("badGuessesBox");
 const allGuessesBox = document.getElementById("allGuessesBox");
+
+// END GAME SCREEN
+const endGameText = document.getElementById("endGameText");
+const endGameWord = document.getElementById("endGameWord");
+const statsTextBox = document.getElementById("statsTextBox");
 
 // VARIABLES
 let goodGuesses = 0;
@@ -138,10 +142,9 @@ function hideLanding() {
 
 function hideWord() {
   word = word.toUpperCase().split("");
-  console.log(word);
   for (i = 0; i < word.length; i++) {
     if (word[i] == " ") hidden.push(" ");
-    else hidden.push("-");
+    else hidden.push(`&#8209;`);
   }
 }
 
@@ -217,7 +220,7 @@ function disableClickedButton(event) {
 // UPDATE HIDDEN WORD
 
 function updateHiddenWord() {
-  hiddenWord.textContent = hidden.join("");
+  hiddenWord.innerHTML = hidden.join("");
 }
 
 // UPDATE ALL GUESSES
@@ -240,7 +243,7 @@ function drawHangman() {
 
 function checkIfYouWonOrLost() {
   if (hidden.join("") == word.join("") || badGuesses >= 11) {
-    landingGameover.removeAttribute("style");
+    landingGameOver.removeAttribute("style");
     statsTextBox.innerHTML = `In total you hit ${allGuesses} times, you hit right ${goodGuesses} (${Math.round(
       (goodGuesses / allGuesses) * 100
     )}%) times, wrong ${badGuesses} (${Math.round(
@@ -249,14 +252,14 @@ function checkIfYouWonOrLost() {
   }
 
   if (hidden.join("") == word.join(""))
-    return (endgame.innerHTML = `CONGRATULATIONS, You won! The word you were looking for was: <p>${word.join(
+    return (endGameText.textContent = `CONGRATULATIONS, You won! The word you were looking for was: <p>${word.join(
       ""
     )}</p>`);
 
   if (badGuesses >= 11)
-    return (endgame.innerHTML = `SORRY, You Lost! The word you were looking for was: <p>${word.join(
-      ""
-    )}</p>`);
+    return (
+      endGameText.textContent = "SORRY, You Lost! The word you were looking for was:",
+      endGameWord.textContent = `${word.join("")}`)
 }
 
 // RESTART
