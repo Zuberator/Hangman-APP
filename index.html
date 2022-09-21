@@ -18,8 +18,10 @@
   <!-- End of CSS -->
 
   <!-- JS -->
+  <script defer src="js/words-polish.js"></script>
+  <script defer src="js/words-english.js"></script>
+  <script defer src="js/proverbs-Polish.js"></script>
   <script defer src="https://code.iconify.design/iconify-icon/1.0.0-beta.3/iconify-icon.min.js"></script>
-  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script defer src="js/functions.js"></script>
   <!-- End of JS -->
 
@@ -27,33 +29,45 @@
 
 <body>
 
-  <div id="landing" class="landing">
+  <div id="landingStart" class="landing">
+    <img src="img/hangman-white.png" alt="hanging man image" class="landing-image" width="512" height="512">
     <h1>HANGMAN GAME</h1>
     <button id="buttonstart">START</button>
   </div>
 
-  <div id="landing-typeword" class="landing">
+  <div id="landingTypeWord" class="landing">
     <h1>TYPE WORD</h1>
     <input id="userword" placeholder="Your word">
     <hr>
-    <span>OR</span>
-    <button id="draw">Draw Word</button>
+    <span>OR DRAW WORD</span>
+    <div>
+      <button id="buttonrDrawPolishWord">PL</button>
+      <button id="buttonrDrawEnglishWord">ENG</button>
+    </div>
+    <hr>
+    <span>OR DRAW PROVERB</span>
+    <div>
+      <button id="buttonrDrawPolishProverb">PL</button>
+    </div>
   </div>
 
-  <div id="game">
-    <h2 id="endgame" style="display: none"></h2>
-    <div class="stats">
-      <button id="allGuessesBox">0</button>
+  <div id="game" style="display: none;">
+
+    <!-- <h2 id="endgame" style="display: none"></h2> -->
+
+    <h1 id="hiddenword"></h1>
+
+    <div class="menu">
+      <button id="goodGuessesBox">0</button>
       <button id="badGuessesBox">0</button>
+      <button id="allGuessesBox">0</button>
+      <button id="buttonrestart">
+        <iconify-icon inline icon="ri:restart-line"></iconify-icon>
+      </button>
     </div>
-    <button id="buttonrestart">
-      <iconify-icon inline icon="ri:restart-line"></iconify-icon>
-    </button>
 
-    <h1 id="hiddenword">TYPE WORD</h1>
-
-    <div id="hangman" style="display: none;">
-      <svg class="hangman" viewBox="0 0 68 68">
+    <div id="hangman">
+      <svg viewBox="0 0 54 68">
         <line class="part" part="11" x1="46" y1="56" x2="40" y2="42"></line>
         <line class="part" part="10" x1="34" y1="56" x2="40" y2="42"></line>
         <line class="part" part="9" x1="40" y1="26" x2="40" y2="42"></line>
@@ -68,12 +82,18 @@
       </svg>
     </div>
 
-    <div id="keyboard" style="display: none;"></div>
+    <div id="keyboard"></div>
   </div>
 
-  <!-- <div id="landing-gameover" class="landing">
-    <h2 id="endgame" style="display: none"></h2>
-    <input id="userword" placeholder="Your word">
-  </div> -->
+  <div id="landingGameover" class="landing" style="display: none">
+
+    <h2 id="endgame"></h2>
+    <p id="statsTextBox"></p>
+
+    <button id="buttonrestart">
+      <iconify-icon inline icon="ri:restart-line"></iconify-icon>
+    </button>
+
+  </div>
 
 </body>

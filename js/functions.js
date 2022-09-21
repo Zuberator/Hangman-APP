@@ -1,22 +1,38 @@
+// import { polishWords } from "./words-polish.js";
+// import { englishWords } from "./words-english.js";
+// import { polishProverbs } from "./proverbs-Polish.js";
+
 // BUTTONS
 const buttonstart = document.getElementById("buttonstart");
-const buttonrestart = document.getElementById("buttonrestart");
+const buttonrDrawPolishWord = document.getElementById("buttonrDrawPolishWord");
+const buttonrDrawPolishProverb = document.getElementById("buttonrDrawPolishProverb");
+const buttonrDrawEnglishWord = document.getElementById("buttonrDrawEnglishWord");
+const buttonrestart = document.querySelectorAll("#buttonrestart");
 
 // LANDING
-const landing = document.getElementById("landing");
-const landingTypeWord = document.getElementById("landing-typeword");
+const landingStart = document.getElementById("landingStart");
+const landingTypeWord = document.getElementById("landingTypeWord");
+const landingGameover = document.getElementById("landingGameover");
 
 // ELEMENTS
 const input = document.getElementById("userword");
 const hiddenWord = document.getElementById("hiddenword");
+
+// MAIN GAME SCREEN COMPONENTS
+const game = document.getElementById("game");
 const hangman = document.getElementById("hangman");
 const keyboard = document.getElementById("keyboard");
-const allGuessesBox = document.getElementById("allGuessesBox");
+
+// STATS
+const statsTextBox = document.getElementById("statsTextBox");
+const goodGuessesBox = document.getElementById("goodGuessesBox");
 const badGuessesBox = document.getElementById("badGuessesBox");
+const allGuessesBox = document.getElementById("allGuessesBox");
 
 // VARIABLES
-let allGuesses = 0;
+let goodGuesses = 0;
 let badGuesses = 0;
+let allGuesses = 0;
 let word = [];
 let hidden = [];
 let keys = [];
@@ -61,9 +77,9 @@ var alphabet = [
 // WELCOME PAGE
 
 buttonstart.addEventListener("click", () => {
-  landing.classList.add("hide");
+  landingStart.classList.add("hide");
   setInterval(function () {
-    landing.style.display = "none";
+    landingStart.style.display = "none";
   }, 2000);
 });
 
@@ -71,27 +87,58 @@ buttonstart.addEventListener("click", () => {
 
 input.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
-    landingTypeWord.classList.add("hide");
-    setInterval(function () {
-      landing.style.display = "none";
-    }, 2000);
+    word = input.value;
     start();
   }
 });
 
+// DRAW WORD
+
+buttonrDrawPolishWord.addEventListener("click", () => {
+  word = polishWords[randomWord(polishWords.length)];
+  start();
+});
+
+buttonrDrawPolishProverb.addEventListener("click", () => {
+  word = polishProverbs[randomWord(polishProverbs.length)];
+  start();
+});
+
+buttonrDrawEnglishWord.addEventListener("click", () => {
+  word = englishWords[randomWord(englishWords.length)];
+  start();
+});
+
+// RANDOM FUNCTION
+
+function randomWord(numberOfWordsInFile) {
+  return Math.floor(Math.random() * numberOfWordsInFile);
+}
+
 // MAIN GAME FUNCTION
 
 function start() {
+  hideLanding();
   hideWord();
   generateKeyboard();
   addListenersForKeys();
   updateHiddenWord();
 }
 
+// HIDE LANDING
+
+function hideLanding() {
+  landingTypeWord.classList.add("hide");
+  setInterval(function () {
+    landingStart.style.display = "none";
+  }, 2000);
+}
+
 // HIDE WORD
 
 function hideWord() {
-  word = input.value.toUpperCase().split("");
+  word = word.toUpperCase().split("");
+  console.log(word);
   for (i = 0; i < word.length; i++) {
     if (word[i] == " ") hidden.push(" ");
     else hidden.push("-");
@@ -102,8 +149,7 @@ function hideWord() {
 
 function generateKeyboard() {
   keyboard.replaceChildren(); //Removing keyboard, if already exist
-  hangman.removeAttribute("style");
-  keyboard.removeAttribute("style");
+  game.removeAttribute("style");
   for (i = 0; i < alphabet.length; i++) {
     let keyButton = document.createElement("button");
     keyButton.classList.add("key");
@@ -114,19 +160,6 @@ function generateKeyboard() {
 }
 
 // ADD LISTENER FOR ALL KEYBOARD KEYS
-
-// function addListenersForKeys() {
-//   keys = document.querySelectorAll(".key");
-//   keys.forEach((key) =>
-//     key.addEventListener("click", (event) => {
-//       checkCompatibility(event);
-//       disableClickedButton(event);
-//       updateHiddenWord();
-//       updateAttempts();
-//       checkIfYouWonOrLost();
-//     })
-//   );
-// }
 
 function addListenersForKeys() {
   keys = document.querySelectorAll(".key");
@@ -145,6 +178,10 @@ function checkCompatibility(event) {
       guessed = true;
     }
   });
+
+  if (guessed) {
+    goodGuesses++;
+  }
 
   if (!guessed) {
     badGuesses++;
@@ -187,8 +224,9 @@ function updateHiddenWord() {
 
 function updateAttempts() {
   allGuesses++;
-  allGuessesBox.textContent = allGuesses;
+  goodGuessesBox.textContent = goodGuesses;
   badGuessesBox.textContent = badGuesses;
+  allGuessesBox.textContent = allGuesses;
 }
 
 // DRAW HANGMAN
@@ -202,10 +240,12 @@ function drawHangman() {
 
 function checkIfYouWonOrLost() {
   if (hidden.join("") == word.join("") || badGuesses >= 11) {
-    hangman.style.display = "none";
-    keyboard.style.display = "none";
-    hiddenWord.style.display = "none";
-    endgame.style.display = "block";
+    landingGameover.removeAttribute("style");
+    statsTextBox.innerHTML = `In total you hit ${allGuesses} times, you hit right ${goodGuesses} (${Math.round(
+      (goodGuesses / allGuesses) * 100
+    )}%) times, wrong ${badGuesses} (${Math.round(
+      (badGuesses / allGuesses) * 100
+    )}%) times`;
   }
 
   if (hidden.join("") == word.join(""))
@@ -221,9 +261,11 @@ function checkIfYouWonOrLost() {
 
 // RESTART
 
-buttonrestart.addEventListener("click", () => {
-  window.location = window.location;
-});
+buttonrestart.forEach((button) =>
+  button.addEventListener("click", () => {
+    window.location = window.location;
+  })
+);
 
 // |
 // |
