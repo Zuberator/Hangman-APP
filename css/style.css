@@ -46,6 +46,7 @@ button:hover {
 /* LANDING - FIRST */
 
 .landing {
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,6 +58,7 @@ button:hover {
   transition: 2s;
   gap: 5vh;
   z-index: 999;
+  padding: 0 8px;
 }
 
 #landingStart {
@@ -209,14 +211,10 @@ hr {
 
 /* LANDING - LAST */
 
-#landingGameOver .wrapper {
-  padding: 0 1rem;
-}
-
-#landingGameOver .wrapper > * {
+#landingGameOver > * {
   margin: 0;
 }
 
-#landingGameOver .wrapper button {
+#landingGameOver button {
   font-size: clamp(1rem, 5vh, 3rem);
 }
