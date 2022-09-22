@@ -5,8 +5,12 @@
 // BUTTONS
 const buttonstart = document.getElementById("buttonstart");
 const buttonrDrawPolishWord = document.getElementById("buttonrDrawPolishWord");
-const buttonrDrawPolishProverb = document.getElementById("buttonrDrawPolishProverb");
-const buttonrDrawEnglishWord = document.getElementById("buttonrDrawEnglishWord");
+const buttonrDrawPolishProverb = document.getElementById(
+  "buttonrDrawPolishProverb"
+);
+const buttonrDrawEnglishWord = document.getElementById(
+  "buttonrDrawEnglishWord"
+);
 const buttonrestart = document.querySelectorAll("#buttonrestart");
 
 // LANDING
@@ -252,14 +256,18 @@ function checkIfYouWonOrLost() {
   }
 
   if (hidden.join("") == word.join(""))
-    return (endGameText.textContent = `CONGRATULATIONS, You won! The word you were looking for was: <p>${word.join(
-      ""
-    )}</p>`);
+    return (
+      (endGameText.textContent =
+        "CONGRATULATIONS, You won! The word you were looking for was: "),
+      (endGameWord.textContent = `${word.join("")}`)
+    );
 
   if (badGuesses >= 11)
     return (
-      endGameText.textContent = "SORRY, You Lost! The word you were looking for was:",
-      endGameWord.textContent = `${word.join("")}`)
+      (endGameText.textContent =
+        "SORRY, You Lost! The word you were looking for was: "),
+      (endGameWord.textContent = `${word.join("")}`)
+    );
 }
 
 // RESTART
