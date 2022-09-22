@@ -15,7 +15,7 @@
       "purpose": "any"
     }
   ],
-  "start_url": "http://localhost/Hangman-App/",
+  "start_url": "https://zuberator.github.io/Hangman-App/",
   "display": "fullscreen",
   "prefer_related_applications": false,
   "background_color": "#000",
