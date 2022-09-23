@@ -38,14 +38,12 @@
   <div id="landingTypeWord" class="landing">
     <h1>TYPE WORD</h1>
     <input id="userword" placeholder="Your word">
-    <hr>
-    <span>OR DRAW WORD</span>
+    <span class="divider">OR DRAW WORD</span>
     <div>
       <button id="buttonrDrawPolishWord">PL</button>
       <button id="buttonrDrawEnglishWord">ENG</button>
     </div>
-    <hr>
-    <span>OR DRAW PROVERB</span>
+    <span class="divider">OR DRAW PROVERB</span>
     <div>
       <button id="buttonrDrawPolishProverb">PL</button>
     </div>
@@ -57,16 +55,16 @@
 
     <h1 id="hiddenword"></h1>
 
-    <div class="menu">
-      <button id="goodGuessesBox">0</button>
-      <button id="badGuessesBox">0</button>
-      <button id="allGuessesBox">0</button>
-      <button id="buttonrestart">
-        <iconify-icon inline icon="ri:restart-line"></iconify-icon>
-      </button>
-    </div>
-
     <div id="hangman">
+      <div class="menu">
+        <button id="goodGuessesBox">0</button>
+        <button id="badGuessesBox">0</button>
+        <button id="allGuessesBox">0</button>
+        <button id="buttonrestart">
+          <iconify-icon inline icon="ri:restart-line"></iconify-icon>
+        </button>
+      </div>
+
       <svg viewBox="0 0 54 68">
         <line class="part" part="11" x1="46" y1="56" x2="40" y2="42"></line>
         <line class="part" part="10" x1="34" y1="56" x2="40" y2="42"></line>

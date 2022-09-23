@@ -248,11 +248,11 @@ function drawHangman() {
 function checkIfYouWonOrLost() {
   if (hidden.join("") == word.join("") || badGuesses >= 11) {
     landingGameOver.removeAttribute("style");
-    statsTextBox.innerHTML = `In total you hit ${allGuesses} times, you hit right ${goodGuesses} (${Math.round(
+    statsTextBox.innerHTML = `In total you hit ${allGuesses} times: <p> Right: ${goodGuesses} (${Math.round(
       (goodGuesses / allGuesses) * 100
-    )}%) times, wrong ${badGuesses} (${Math.round(
+    )}%) times, </p><p> Wrong: ${badGuesses} (${Math.round(
       (badGuesses / allGuesses) * 100
-    )}%) times`;
+    )}%) times </p>`;
   }
 
   if (hidden.join("") == word.join(""))
