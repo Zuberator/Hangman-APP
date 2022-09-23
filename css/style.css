@@ -95,14 +95,15 @@ input {
 
 .divider {
   display: flex;
+  font-size: clamp(1px, 2vh, 1rem);
 }
 
 .divider:before,
 .divider:after {
   content: '';
   flex: 1;
-  border-bottom: 2px solid;
-  margin: auto 2rem;
+  border-bottom: 1px solid;
+  margin: auto 5vw;
   width: 20vw;
 }
 

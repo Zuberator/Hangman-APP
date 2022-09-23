@@ -248,26 +248,24 @@ function drawHangman() {
 function checkIfYouWonOrLost() {
   if (hidden.join("") == word.join("") || badGuesses >= 11) {
     landingGameOver.removeAttribute("style");
-    statsTextBox.innerHTML = `In total you hit ${allGuesses} times: <p> Right: ${goodGuesses} (${Math.round(
+    endGameWord.textContent = `${word.join("")}`;
+    statsTextBox.innerHTML = `
+    <p> In total you hit ${allGuesses} times: </p>
+    <p> Right: ${goodGuesses} (${Math.round(
       (goodGuesses / allGuesses) * 100
-    )}%) times, </p><p> Wrong: ${badGuesses} (${Math.round(
+    )}%) times, </p>
+    <p> Wrong: ${badGuesses} (${Math.round(
       (badGuesses / allGuesses) * 100
     )}%) times </p>`;
   }
 
   if (hidden.join("") == word.join(""))
-    return (
-      (endGameText.textContent =
-        "CONGRATULATIONS, You won! The word you were looking for was: "),
-      (endGameWord.textContent = `${word.join("")}`)
-    );
+    return (endGameText.innerHTML =
+      "<h3>CONGRATULATIONS, You won!</h2><p>The word you were looking for was:</p>");
 
   if (badGuesses >= 11)
-    return (
-      (endGameText.textContent =
-        "SORRY, You Lost! The word you were looking for was: "),
-      (endGameWord.textContent = `${word.join("")}`)
-    );
+    return (endGameText.innerHTML =
+      "<h3>SORRY, You Lost!</h3><p>The word you were looking for was:</p>");
 }
 
 // RESTART
