@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#000" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="description"
-    content="Fully responsive, classic word game. Try to guess yours or a random word by checking individual letters!">
+    content="Fully responsive, classic game. Try to line up your mark three in a row to win!">
   <link href="img/favicon.png" rel="shortcut icon" type="image/png">
 
   <!-- WEB APP -->
@@ -19,9 +19,6 @@
   <link rel="stylesheet" href="css/style.css" type="text/css" />
 
   <!-- JS -->
-  <script defer src="js/words-polish.js"></script>
-  <script defer src="js/words-english.js"></script>
-  <script defer src="js/proverbs-Polish.js"></script>
   <script defer src="https://code.iconify.design/iconify-icon/1.0.0-beta.3/iconify-icon.min.js"></script>
   <script defer src="js/functions.js"></script>
 
@@ -29,68 +26,21 @@
 
 <body>
 
-  <div id="landingStart" class="landing">
-    <img src="img/hangman-white.png" alt="hanging man image" class="landing-image" width="512" height="512">
-    <h1>HANGMAN GAME</h1>
-    <button id="buttonstart">START</button>
+  <div data-board>
+    <div class="cell" data-cell></div>
+    <div class="cell" data-cell></div>
+    <div class="cell" data-cell></div>
+    <div class="cell" data-cell></div>
+    <div class="cell" data-cell></div>
+    <div class="cell" data-cell></div>
+    <div class="cell" data-cell></div>
+    <div class="cell" data-cell></div>
+    <div class="cell" data-cell></div>
   </div>
 
-  <div id="landingTypeWord" class="landing">
-    <h1>TYPE WORD</h1>
-    <input id="userword" placeholder="Your word">
-    <span class="divider">OR DRAW WORD</span>
-    <div>
-      <button id="buttonrDrawPolishWord">PL</button>
-      <button id="buttonrDrawEnglishWord">ENG</button>
-    </div>
-    <span class="divider">OR DRAW PROVERB</span>
-    <div>
-      <button id="buttonrDrawPolishProverb">PL</button>
-    </div>
-  </div>
-
-  <div id="game" style="display: none;">
-
-    <h1 id="hiddenword"></h1>
-
-    <div id="hangman">
-      <div class="menu">
-        <button id="goodGuessesBox">0</button>
-        <button id="badGuessesBox">0</button>
-        <button id="allGuessesBox">0</button>
-        <button id="buttonrestart">
-          <iconify-icon inline icon="ri:restart-line"></iconify-icon>
-        </button>
-      </div>
-
-      <svg viewBox="0 0 54 68">
-        <line class="part" part="11" x1="46" y1="56" x2="40" y2="42"></line>
-        <line class="part" part="10" x1="34" y1="56" x2="40" y2="42"></line>
-        <line class="part" part="9" x1="40" y1="26" x2="40" y2="42"></line>
-        <line class="part" part="8" x1="52" y1="32" x2="40" y2="26"></line>
-        <line class="part" part="7" x1="28" y1="32" x2="40" y2="26"></line>
-        <circle class="part" part="6" cx="40" cy="20" r="6"></circle>
-        <line class="part" part="5" x1="40" y1="2" x2="40" y2="14"></line>
-        <line class="part" part="4" x1="8" y1="10" x2="16" y2="2"></line>
-        <line class="part" part="3" x1="5" y1="2" x2="44" y2="2"></line>
-        <line class="part" part="2" x1="8" y1="66" x2="8" y2="2"></line>
-        <line class="part" part="1" x1="2" y1="66" x2="32" y2="66"></line>
-      </svg>
-    </div>
-
-    <div id="keyboard"></div>
-  </div>
-
-  <div id="landingGameOver" class="landing" style="display: none">
-
-    <div id="endGameText"></div>
-    <h2 id="endGameWord"></h2>
-    <div id="statsTextBox"></div>
-
-    <button id="buttonrestart">
-      <iconify-icon inline icon="ri:restart-line"></iconify-icon>
-    </button>
-
+  <div end-game-box>
+    <h2 end-game-text></h2>
+    <button id="buttonRestart">Restart</button>
   </div>
 
 </body>
