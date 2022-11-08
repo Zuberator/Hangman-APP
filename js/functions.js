@@ -84,8 +84,12 @@ var alphabet = [
 
 // WELCOME PAGE
 
+landingStart.addEventListener("transitionend", (event) => {
+  if (event.target == landingStart) landingStart.style.display = "none";
+}),
+  { once: true };
+
 buttonstart.addEventListener("click", () => {
-  landingStart.addEventListener("transitionend", (target) => {target.style.display = "none"}, { once: true });
   landingStart.classList.add("hide");
 });
 
@@ -134,7 +138,11 @@ function start() {
 // HIDE LANDING
 
 function hideLanding() {
-  landingTypeWord.addEventListener("transitionend", (target) => {target.style.display = "none"}, { once: true });
+  landingTypeWord.addEventListener("transitionend", (event) => {
+    if (event.target == landingTypeWord) landingTypeWord.style.display = "none";
+  }),
+    { once: true };
+
   landingTypeWord.classList.add("hide");
 }
 
