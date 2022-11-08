@@ -85,10 +85,8 @@ var alphabet = [
 // WELCOME PAGE
 
 buttonstart.addEventListener("click", () => {
+  landingStart.addEventListener("transitionend", (target) => {target.style.display = "none"}, { once: true });
   landingStart.classList.add("hide");
-  setInterval(function () {
-    landingStart.style.display = "none";
-  }, 2000);
 });
 
 // INPUT WORD AND WAIT FOR ENTER
@@ -136,10 +134,8 @@ function start() {
 // HIDE LANDING
 
 function hideLanding() {
+  landingTypeWord.addEventListener("transitionend", (target) => {target.style.display = "none"}, { once: true });
   landingTypeWord.classList.add("hide");
-  setInterval(function () {
-    landingStart.style.display = "none";
-  }, 2000);
 }
 
 // HIDE WORD
@@ -284,13 +280,13 @@ buttonrestart.forEach((button) =>
 // |
 // |
 
-String.prototype.podmienZnak = function (miejsce, znak) {
-  if (miejsce > this.length - 1) return;
-  return this.substr(0, miejsce) + znak + this.substr(miejsce + 1);
-};
+// String.prototype.podmienZnak = function (miejsce, znak) {
+//   if (miejsce > this.length - 1) return;
+//   return this.substr(0, miejsce) + znak + this.substr(miejsce + 1);
+// };
 
-napis = "word word";
+// napis = "word word";
 
-console.log(napis.podmienZnak(0, "p"));
+// console.log(napis.podmienZnak(0, "p"));
 
 // DODAĆ DZWIĘK DO GRY
